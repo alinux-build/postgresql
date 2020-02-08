@@ -1,3 +1,4 @@
+%define alicloud_base_release 1
 # This is the PostgreSQL Global Development Group Official RPMset spec file,
 # or a derivative thereof.
 # Copyright 2003-2009 Lamar Owen <lowen@pari.edu> <lamar.owen@wgcr.org>
@@ -63,7 +64,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 9.2
 Version: 9.2.24
-Release: 2%{?dist}
+Release: 2.%{alicloud_base_release}%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -1174,6 +1175,9 @@ fi
 %endif
 
 %changelog
+* Sat Feb 08 2020 Wei Liu <alicloud-linux-os@service.aliyun.com> - 9.2.24-2.1
+- Rebuild for Alibaba Cloud Linux
+
 * Fri Jan 24 2020 Patrik Novotný <panovotn@redhat.com> - 9.2.24-2
 - Patch fixing BZ#1754816: handle EAGAIN error on socket write
 

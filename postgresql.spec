@@ -1,4 +1,3 @@
-%define alicloud_base_release 1
 # This is the PostgreSQL Global Development Group Official RPMset spec file,
 # or a derivative thereof.
 # Copyright 2003-2009 Lamar Owen <lowen@pari.edu> <lamar.owen@wgcr.org>
@@ -64,7 +63,7 @@ Summary: PostgreSQL client programs
 Name: postgresql
 %global majorversion 9.2
 Version: 9.2.24
-Release: 1.%{alicloud_base_release}%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -135,6 +134,9 @@ Patch13: postgresql-9.2.4-upgrade-and-perm-problems.patch
 # Upstream commit: f2fa0c6514b6c5b7bccfe5050f6791dea1113c2e
 # Upstream commit: 243de06be96d6001d01f2ec7c4573aad8b657195
 Patch14: postgresql-CVE-2018-10915.patch
+
+# See BZ#1754816
+Patch15: postgresql-9.2.24-handle-EAGAIN-on-socket-write.patch
 
 BuildRequires: perl(ExtUtils::MakeMaker) glibc-devel bison flex gawk help2man
 BuildRequires: perl(ExtUtils::Embed), perl-devel
@@ -374,6 +376,7 @@ benchmarks.
 %patch8 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 
 # We used to run autoconf here, but there's no longer any real need to,
 # since Postgres ships with a reasonably modern configure script.
@@ -1171,8 +1174,8 @@ fi
 %endif
 
 %changelog
-* Fri Dec 07 2018 leilei.lin <leilei.lin@alibaba-inc.com> - 9.2.24-1
-- rebuild for alinux7u6-os
+* Fri Jan 24 2020 Patrik Novotný <panovotn@redhat.com> - 9.2.24-2
+- Patch fixing BZ#1754816: handle EAGAIN error on socket write
 
 * Tue Aug 14 2018 Pavel Raiskup <praiskup@redhat.com> - 9.2.24-1
 - update to the latest 9.2 release
